@@ -1,0 +1,12 @@
+{
+  "name": "weathermagnets",
+  "version": "1.0.0",
+  "description": "a poetry generator based on the current weather",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "jasminewang",
+  "license": "ISC",
+  "dependencies": {}
+}
