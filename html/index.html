@@ -2,60 +2,14 @@
 
 <html>
   <head>
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-      }
-    </style>
+    <meta charset="utf-8">
   </head>
   <body>
     <div id="container"></div>
     <script src="../js/kinetic-v5.1.0.min.js"></script>
-    <script defer="defer">
+    <script src="weather.js"></script>
+    <script src="words.js"></script>
 
-var stage = new Kinetic.Stage({
-    container: "container",
-    width: window.innerWidth,
-    height: window.innerHeight
-});
-
-var layer = new Kinetic.Layer();
-
-var group = new Kinetic.Group({
-    draggable: true
-});
-
-var simpleText = new Kinetic.Text({
-      x: 15,
-      y: 75,
-      text: 'may',
-      fontSize: 15,
-      fontFamily: 'Times New Roman',
-      fill: 'black'
-});
-
-  /*for(var word in testWords){
-    var rect = new Kinetic.Rect();
-  }*/
-
-var rect = new Kinetic.Rect({
-      x: 5,
-      y: 70,
-      width: simpleText.getWidth() + 20,
-      height: simpleText.getHeight() + 13,
-      stroke: 'black',
-      strokeWidth: 2
-});
-
-group.add(simpleText);
-group.add(rect);
-layer.add(group);
-stage.add(layer);
-
-
-    </script>
-    <script src=""></script>
   </body>
 </html>
         
