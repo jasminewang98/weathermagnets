@@ -6,8 +6,75 @@ var latitude;
 //Is the longitude that the user is at
 var longitude; 
 
+function setup() {
+
+	//If the navigator exists on the user's browser, then it will grab their location. 
+	if(navigator.geolocation){
+		//finds and watches the user's location
+		navigator.geolocation.getCurrentPosition(onPositionRecieved, locationNotRecieved, {timeout:0});
+		var watch = navigator.geolocation.watchPosition(onPositionRecieved, locationNotRecieved);
+		
+
+	}
+
+
+}
+
+function onPositionRecieved(position){
+
+	//when the position is recieved, the latitude and longitude are read and then the JSON is loaded
+	latitude = position.coords.latitude; 
+	longitude = position.coords.longitude; 
+
+	var urlPreLat = 'http://api.openweathermap.org/data/2.5/weather?lat='; 
+   var urlPostLat = '&lon=';
+   var urlPostLon = '&APPID=dbbaf2eb6a366eedbd59b8c908bb4cac&units=metric'; 
+
+
+   var jsonCall = urlPreLat + latitude + urlPostLat + longitude + urlPostLon;
+   loadJSON(jsonCall, gotData);
+
+   
+}
+
+
+
+//an error is thrown if the location is not recieved
+function locationNotRecieved(PositionError){
+	console.log(PositionError);
+}
+
+//weather data is saved into the weather var
+function gotData(data){
+
+		weather = data; 
+
+    //rainy
+    var  mainWeather = data.main.main; 
+
+       if(mainweather== "mist" || mainweather == "drizzle"){
+        magnetGenerator(rainSet);
+    }
+
+    if(mainWeather=="rainy"){
+        magnetGenerator(stormSet);
+    }
+
+    //sunny
+    if(mainweather == "clear"){
+        magnetGenerator(clearSet);
+    }
+
+    //cloudy weather
+    if(mainweather == "cloudy"){
+        magnetGenerator(cloudSet);
+    }
+
+}
+
+
 //Is the wordset that will be displayed
-var wordSet; 
+var words; 
 
 
 var stage = new Kinetic.Stage({
@@ -63,73 +130,4 @@ stage.add(layer);
 
 }
 
-function setup() {
-
-	//If the navigator exists on the user's browser, then it will grab their location. 
-	if(navigator.geolocation){
-		//finds and watches the user's location
-		navigator.geolocation.getCurrentPosition(onPositionRecieved, locationNotRecieved, {timeout:0});
-		var watch = navigator.geolocation.watchPosition(onPositionRecieved, locationNotRecieved);
-		
-
-	}
-
- 
-
-
-}
-
-function onPositionRecieved(position){
-
-	//when the position is recieved, the latitude and longitude are read and then the JSON is loaded
-	latitude = position.coords.latitude; 
-	longitude = position.coords.longitude; 
-
-	var urlPreLat = 'http://api.openweathermap.org/data/2.5/weather?lat='; 
-   var urlPostLat = '&lon=';
-   var urlPostLon = '&APPID=dbbaf2eb6a366eedbd59b8c908bb4cac&units=metric'; 
-
-
-   var jsonCall = urlPreLat + latitude + urlPostLat + longitude + urlPostLon;
-   loadJSON(jsonCall, gotData);
-
-   
-}
-
-
-
-//an error is thrown if the location is not recieved
-function locationNotRecieved(PositionError){
-	console.log(PositionError);
-}
-
-//weather data is saved into the weather var
-function gotData(data){
-
-		weather = data; 
-
-    //rainy
-    var  mainWeather = data.main.main; 
-
-       if(mainweather== "mist" || mainweather == "drizzle"){
-        magnetGenerator(rainSet);
-    }
-
-    if(mainWeather=="rainy"){
-        magnetGenerator(stormSet);
-    }
-
-    //sunny
-    if(mainweather == "clear"){
-        magnetGenerator(clearSet);
-    }
-
-    //cloudy weather
-    if(mainweather == "cloudy"){
-        magnetGenerator(cloudSet);
-    }
-	
-	
-
-}
 
