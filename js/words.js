@@ -13,11 +13,7 @@ function setup() {
 		//finds and watches the user's location
 		navigator.geolocation.getCurrentPosition(onPositionRecieved, locationNotRecieved, {timeout:0});
 		var watch = navigator.geolocation.watchPosition(onPositionRecieved, locationNotRecieved);
-		
-
 	}
-
-
 }
 
 function onPositionRecieved(position){
@@ -33,10 +29,7 @@ function onPositionRecieved(position){
 
    var jsonCall = urlPreLat + latitude + urlPostLat + longitude + urlPostLon;
    loadJSON(jsonCall, gotData);
-
-   
 }
-
 
 
 //an error is thrown if the location is not recieved
@@ -49,33 +42,10 @@ function gotData(data){
 
 		weather = data; 
 
-    //rainy
-    var  mainWeather = data.main.main; 
-
-       if(mainweather== "mist" || mainweather == "drizzle"){
-        magnetGenerator(rainSet);
-    }
-
-    if(mainWeather=="rainy"){
-        magnetGenerator(stormSet);
-    }
-
-    //sunny
-    if(mainweather == "clear"){
-        magnetGenerator(clearSet);
-    }
-
-    //cloudy weather
-    if(mainweather == "cloudy"){
-        magnetGenerator(cloudSet);
-    }
-
-}
 
 
 //Is the wordset that will be displayed
 var words; 
-
 
 var stage = new Kinetic.Stage({
     container: "container",
@@ -85,8 +55,9 @@ var stage = new Kinetic.Stage({
 
 var layer = new Kinetic.Layer();
 
-var displayWidth = window.innerWidth /4;
-var displayHeight = window.innerHeight /4;
+var displayWidth = window.innerWidth / 2; //sets where the first magnet appears horizontally
+var displayHeight = window.innerHeight / 1.5 ; //sets where the first magnet appears vertically
+
 
 var clearSet = [ '!', '"', '"', '.', '?', 'I', 'I', 'a', 'a', 'am', 'accomplish', 'achieve', 'admire', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'beautiful', 'boy', 'but', 'care', 'chance', 'clear', 'cloud', 'could', 'dance', 'dance', 'darkness', 'day', 'do', 'dream', 'es', 'everything', 'feel', 'for', 'free', 'fresh', 'fun', 'girl', 'grace', 'happy', 'harmony', 'he', 'hello', 'her', 'here', 'hi', 'him', 'how', 'hug', 'imagine', 'is', 'is', 'is', 'is', 'it', 'it', 'joy', 'jubilant', 'jump', 'kiss', 'laugh', 'life', 'light', 'like', 'linger', 'lips', 'love', 'make', 'maybe', 'me', 'me', 'mind', 'my', 'mystery', 'name', 'nap', 'nearby', 'next', 'night', 'no', 'on', 'or', 'peace', 'peaceful', 'possibility', 'possible', 'potential', 'rhythm', 'run', 's', 'safe', 'secure', 'she', 'should', 'simple', 'simply', 'sing', 'sing', 'skip', 'sleep', 'smile', 'so', 'soul', 'spiritual', 'stay', 'sun', 'sunny', 'the', 'the', 'the', 'there', 'think', 'this', 'this', 'thrive', 'through', 'to', 'to', 'today', 'together', 'tomorrow', 'try', 'was', 'was', 'we', 'week', 'were', 'were', 'whisper', 'will', 'will', 'wish', 'with', 'wonder', 'world', 'worthy', 'would', 'would', 'wow', 'wrap', 'year', 'yes', 'yesterday', 'you', 'you', 'your' ]
 var rainSet = [ '!', '"', '"', '.', '?', 'I', 'I', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'apology', 'april', 'are', 'are', 'away', 'be', 'believe', 'book', 'boy', 'bring', 'but', 'but', 'but', 'can', 'can', 'care', 'chance', 'chance', 'clean', 'cloud', 'clouds', 'cloudy', 'cold', 'come', 'cry', 'damaged', 'dance', 'dark', 'dark', 'darkness', 'day', 'desire', 'drip', 'drop', 'drown', 'es', 'feel', 'flowers', 'for', 'forever', 'get', 'girl', 'give', 'he', 'her', 'him', 'home', 'how', 'in', 'in', 'ing', 'is', 'is', 'is', 'it', 'just', 'kiss', 'last', 'life', 'life', 'light', 'like', 'linger', 'love', 'make', 'may', 'me', 'me', 'melancholy', 'mine', 'my', 'mystery', 'nest', 'never', 'next', 'night', 'no', 'on', 'or', 'pitter-patter', 'pour', 'rain', 'read', 'rhythm', 's', 'safe', 'said', 'serene', 'shall', 'share', 'she', 'shower', 'showers', 'sing', 'singing', 'so', 'sometimes', 'sorrow', 'sorry', 'splash', 'sprinkle', 'stand', 'stay', 'storm', 'sun', 'the', 'the', 'the', 'this', 'through', 'to', 'to', 'to', 'today', 'together', 'tomorrow', 'umbrella', 'under', 'us', 'want', 'was', 'was', 'wash', 'water', 'we', 'were', 'were', 'will', 'will', 'will', 'with', 'worthy', 'would', 'would', 'yes', 'yesterday', 'you', 'you', 'your' ]
@@ -94,39 +65,79 @@ var stormSet = [ '!', '.', '?', 'I', 'I', 'a', 'a', 'a', 'a', 'am', 'am', 'an', 
 var snowSet = ['!', '.', '?', 'I', 'I', 'a', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'brightness', 'dazzling', 'death', 'he', 'her', 'here', 'him', 'how', 'is', 'is', 'soft', 'milk', 'crisp', 'breath', 'evaporate', 'settle', 'damp', 'love', 'cozy', 'fire', 'whoosh', 'snowman', 'mittens', 'red', 'bitten', 'bright', 'smile', 'glazed', 'stomp', 'heavy', 'tired', 'stoop', 'old', 'wistful', 'stories', 'said', 'fall', 'forever', 'get', 'girl', 'give', 'he', 'her', 'him', 'home', 'how', 'in', 'in', 'ing', 'is', 'is', 'is', 'it', 'just', 'mystery', 'silence', 'night', 'glow', 'orange', 'cheeks', 'fingers', 'lips', 'toes']
 var cloudSet = [ '!', '.', '?', 'I', 'I', 'a', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'boy', 'but', 'cloudy', 'cloud', 'gloomy', 'darkness', 'day', 'do', 'everything', 'feel', 'for', 'he', 'her', 'here', 'him', 'how', 'is', 'is', 'is', 'it', 'it', 'like', 'maybe', 'me', 'me', 'my', 'mystery', 'name', 'nap', 'nearby', 'next', 'night', 'no', 'on', 'or', 'she', 'so', 'the', 'the', 'the', 'there', 'think', 'this', 'this', 'thrive', 'through', 'to', 'to', 'today', 'together', 'tomorrow', 'try', 'was', 'was', 'we', 'week', 'were', 'were', 'whisper', 'will', 'will', 'wish', 'with', 'wonder', 'world', 'worthy', 'would', 'would', 'wrap', 'year', 'yes', 'yesterday', 'you', 'you', 'your', 'miss', 'storm', 'turbulent', 'unsettling', 'dark', 'sadness', 'jacket', 'gloomy', 'darkness', 'crowded', 'seek', 'solace', 'serenity', 'chaos', 'peace', 'troubled', 'stormy', 'burden', '"', '"', 'said', 'loud', 'soft', 's', 'es', 'mind', 'demons', 'sleepy', 'tired', 'slope', 'sadness', 'opaque', 'gradual', 'gone', 'destroy' 'my', 'life', 'is', 'a', 'mess', 'peaceful', 'droopy', 'ed', 'confused', 'blurred', 'sullen', 'vaporous', 'this', 'tomorrow', 'will', 'be', 'better', 'eye', 'of', 'calm', 'before' ]
 
-function magnetGenerator(wordSet){
-//w being the number of words in a given set
-for(w in words) {
+
+function magnetGenerator(){
+
+//i being the number of words in a given set
+for(i in words) {
+
     // for each magnet, create a draggable group (text, rectangle)
     var group = new Kinetic.Group({
         draggable: true
     });
 
     var simpleText = new Kinetic.Text({
-        x: 15,
-        y: 75,
-        text: 'may',
+        x: displayWidth + 8,
+        y: displayHeight,
+        text: words[i],
         fontSize: 15,
         fontFamily: 'Times New Roman',
-        fill: 'black'
+        fill: 'black',     
     });
 
     var rect = new Kinetic.Rect({
-        x: 5,
-        y: 70,
-         width: simpleText.getWidth() + 20,
-        height: simpleText.getHeight() + 13,
+        x: displayWidth + 4,
+        y: displayHeight - 2,
+        width: simpleText.getWidth() + 10,
+        height: simpleText.getHeight() + 10,
         stroke: 'black',
-        strokeWidth: 2
+        strokeWidth: 2,
+        fill: 'white'
     });
-
-    group.add(simpleText);
-    group.add(rect);
-    layer.add(group);
-
+    
+    group.add(rect); //add rect first bc otherwise the box goes on top of the text
+    group.add(simpleText); //add the text
+    layer.add(group); //makes the group draggable
+    
+    displayWidth = displayWidth + simpleText.getWidth() + 15; //spaces the magnets apart
+    if (displayWidth > window.innerWidth) { //makes the magnets appear in rows
+        displayWidth = window.innerWidth / 4;
+        displayHeight +=35;
+    }
 }
 
 stage.add(layer);
+
+}
+
+    //rainy
+    var  mainWeather = data.main.main; 
+
+    if(mainweather== "mist" || mainweather == "drizzle"){
+        words = rainSet;
+        magnetGenerator(rainSet);
+        document.body.style.background = '#9aa0bf';
+    }
+
+    if(mainWeather=="rainy"){
+        words = stormSet;
+        magnetGenerator(stormSet);
+        document.body.style.background = '#171e42';
+    }
+
+    //sunny
+    if(mainweather == "clear"){
+        words = clearSet;
+        magnetGenerator(clearSet);
+        document.body.style.background = '#87CEFA';
+    }
+
+    //cloudy weather
+    if(mainweather == "cloudy"){
+        words = cloudSet;
+        magnetGenerator(cloudSet);
+        document.body.style.background = '#ADACA9';
+    }
 
 }
 
