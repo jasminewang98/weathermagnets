@@ -3,13 +3,84 @@
 <html>
   <head>
     <meta charset="utf-8">
+      <style>
+        body {
+          margin: 0px;
+          padding: 0px
+        }
+      </style>
   </head>
-  <body>
+  <body> 
     <div id="container"></div>
-    <script src="../js/kinetic-v5.1.0.min.js"></script>
-    <script src="weather.js"></script>
-    <script src="words.js"></script>
+    <script src="../libs/kinetic-v5.1.0.min.js"></script>
+    <script defer="defer">
 
+var stage = new Kinetic.Stage({
+    container: "container",
+    width: window.innerWidth,
+    height: window.innerHeight
+});
+
+var layer = new Kinetic.Layer();
+
+var displayWidth = window.innerWidth / 2; //sets where the first magnet appears horizontally
+var displayHeight = window.innerHeight / 1.5 ; //sets where the first magnet appears vertically
+
+/*
+
+var clearSet = [ '!', '"', '"', '.', '?', 'I', 'I', 'a', 'a', 'am', 'accomplish', 'achieve', 'admire', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'beautiful', 'boy', 'but', 'care', 'chance', 'clear', 'cloud', 'could', 'dance', 'dance', 'darkness', 'day', 'do', 'dream', 'es', 'everything', 'feel', 'for', 'free', 'fresh', 'fun', 'girl', 'grace', 'happy', 'harmony', 'he', 'hello', 'her', 'here', 'hi', 'him', 'how', 'hug', 'imagine', 'is', 'is', 'is', 'is', 'it', 'it', 'joy', 'jubilant', 'jump', 'kiss', 'laugh', 'life', 'light', 'like', 'linger', 'lips', 'love', 'make', 'maybe', 'me', 'me', 'mind', 'my', 'mystery', 'name', 'nap', 'nearby', 'next', 'night', 'no', 'on', 'or', 'peace', 'peaceful', 'possibility', 'possible', 'potential', 'rhythm', 'run', 's', 'safe', 'secure', 'she', 'should', 'simple', 'simply', 'sing', 'sing', 'skip', 'sleep', 'smile', 'so', 'soul', 'spiritual', 'stay', 'sun', 'sunny', 'the', 'the', 'the', 'there', 'think', 'this', 'this', 'thrive', 'through', 'to', 'to', 'today', 'together', 'tomorrow', 'try', 'was', 'was', 'we', 'week', 'were', 'were', 'whisper', 'will', 'will', 'wish', 'with', 'wonder', 'world', 'worthy', 'would', 'would', 'wow', 'wrap', 'year', 'yes', 'yesterday', 'you', 'you', 'your' ]
+var rainSet = [ '!', '"', '"', '.', '?', 'I', 'I', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'apology', 'april', 'are', 'are', 'away', 'be', 'believe', 'book', 'boy', 'bring', 'but', 'but', 'but', 'can', 'can', 'care', 'chance', 'chance', 'clean', 'cloud', 'clouds', 'cloudy', 'cold', 'come', 'cry', 'damaged', 'dance', 'dark', 'dark', 'darkness', 'day', 'desire', 'drip', 'drop', 'drown', 'es', 'feel', 'flowers', 'for', 'forever', 'get', 'girl', 'give', 'he', 'her', 'him', 'home', 'how', 'in', 'in', 'ing', 'is', 'is', 'is', 'it', 'just', 'kiss', 'last', 'life', 'life', 'light', 'like', 'linger', 'love', 'make', 'may', 'me', 'me', 'melancholy', 'mine', 'my', 'mystery', 'nest', 'never', 'next', 'night', 'no', 'on', 'or', 'pitter-patter', 'pour', 'rain', 'read', 'rhythm', 's', 'safe', 'said', 'serene', 'shall', 'share', 'she', 'shower', 'showers', 'sing', 'singing', 'so', 'sometimes', 'sorrow', 'sorry', 'splash', 'sprinkle', 'stand', 'stay', 'storm', 'sun', 'the', 'the', 'the', 'this', 'through', 'to', 'to', 'to', 'today', 'together', 'tomorrow', 'umbrella', 'under', 'us', 'want', 'was', 'was', 'wash', 'water', 'we', 'were', 'were', 'will', 'will', 'will', 'with', 'worthy', 'would', 'would', 'yes', 'yesterday', 'you', 'you', 'your' ]
+var stormSet = [ '!', '.', '?', 'I', 'I', 'a', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'boy', 'but', 'chance', 'cloud', 'could', 'darkness', 'day', 'do', 'everything', 'feel', 'for', 'he', 'her', 'here', 'him', 'how', 'is', 'is', 'is', 'it', 'it', 'like', 'maybe', 'me', 'me', 'my', 'mystery', 'name', 'nap', 'nearby', 'next', 'night', 'no', 'on', 'or', 'she', 'so', 'the', 'the', 'the', 'there', 'think', 'this', 'this', 'thrive', 'through', 'to', 'to', 'today', 'together', 'tomorrow', 'try', 'was', 'was', 'we', 'week', 'were', 'were', 'whisper', 'will', 'will', 'wish', 'with', 'wonder', 'world', 'worthy', 'would', 'would', 'wrap', 'year', 'yes', 'yesterday', 'you', 'you', 'your', 'miss', 'storm', 'turbulent', 'unsettling', 'dark', 'black', 'pitch', 'thunder', 'lightning', 'crowd', 'seek', 'solace', 'serenity', 'chaos', 'peace', 'troubled', 'stormy', 'burden', '"', '"', 'said', 'loud', 'soft', 's', 'es', 'mind', 'demons', 'hurricane', 'tornado', 'spiral', 'anger', 'violent', 'crash', 'fall', 'destroy' 'my', 'life', 'is', 'a', 'mess', 'shambles', 'broken', 'ed', 'break', 'crash', 'rough', 'time', 'this', 'tomorrow', 'will', 'be', 'better', 'eye', 'of', 'calm', 'before' ]
+*/
+var snowSet = ['!', '.', '?', 'I', 'I', 'a', 'a', 'a', 'a', 'am', 'am', 'an', 'and', 'and', 'any', 'are', 'are', 'be', 'brightness', 'dazzling', 'death', 'he', 'her', 'here', 'him', 'how', 'is', 'is', 'soft', 'milk', 'crisp', 'breath', 'evaporate', 'settle', 'damp', 'love', 'cozy', 'fire', 'whoosh', 'snowman', 'mittens', 'red', 'bitten', 'bright', 'smile', 'glazed', 'stomp', 'heavy', 'tired', 'stoop', 'old', 'wistful', 'stories', 'said', 'fall', 'forever', 'get', 'girl', 'give', 'he', 'her', 'him', 'home', 'how', 'in', 'in', 'ing', 'is', 'is', 'is', 'it', 'just', 'mystery', 'silence', 'night', 'glow', 'orange', 'cheeks', 'fingers', 'lips', 'toes']
+
+document.body.style.background = '#F9CCCA';
+
+var words = snowSet;
+
+//i being the number of words in a given set
+for(i in words) {
+
+    // for each magnet, create a draggable group (text, rectangle)
+    var group = new Kinetic.Group({
+        draggable: true
+    });
+
+    var simpleText = new Kinetic.Text({
+        x: displayWidth + 8,
+        y: displayHeight,
+        text: words[i],
+        fontSize: 15,
+        fontFamily: 'Times New Roman',
+        fill: 'black',     
+    });
+
+    var rect = new Kinetic.Rect({
+        x: displayWidth + 4,
+        y: displayHeight - 2,
+        width: simpleText.getWidth() + 10,
+        height: simpleText.getHeight() + 10,
+        stroke: 'black',
+        strokeWidth: 2,
+        fill: 'white'
+    });
+    
+    group.add(rect); //add rect first bc otherwise the box goes on top of the text
+    group.add(simpleText); //add the text
+    layer.add(group); //makes the group draggable
+    
+    displayWidth = displayWidth + simpleText.getWidth() + 15; //spaces the magnets apart
+    if (displayWidth > window.innerWidth) { //makes the magnets appear in rows
+        displayWidth = window.innerWidth / 4;
+        displayHeight +=35;
+    }
+}
+
+stage.add(layer);
+
+</script>
+
+    <script src=""> </script>
   </body>
 </html>
         
