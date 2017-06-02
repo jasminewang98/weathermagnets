@@ -1,3 +1,4 @@
+//var Kinetic = require('../libs/kinetic-v5.1.0.min.js');
 
 //is the JSON data from the OpenWeatherMap API
 var weather;
