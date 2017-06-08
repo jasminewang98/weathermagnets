@@ -8,7 +8,6 @@ var latitude;
 var longitude; 
 
 function setup() {
-
 	//If the navigator exists on the user's browser, then it will grab their location. 
 	if(navigator.geolocation){
 		//finds and watches the user's location
@@ -33,10 +32,28 @@ function onPositionRecieved(position){
 }
 
 
+
 //an error is thrown if the location is not recieved
 function locationNotRecieved(PositionError){
 	console.log(PositionError);
 }
+
+function loadJSON(path, success, error) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        success(JSON.parse(xhr.responseText));
+      }
+      else {
+        error(xhr);
+      }
+    }
+  };
+  xhr.open('GET', path, true);
+  xhr.send();
+}
+
 
 //weather data is saved into the weather var
 function gotData(data){
@@ -112,29 +129,29 @@ stage.add(layer);
 }
 
     //rainy
-    var  mainWeather = data.main.main; 
+    var mainWeather = data.weather["0"].main; 
 
-    if(mainweather== "mist" || mainweather == "drizzle"){
+    if(mainWeather== "Mist" || mainWeather == "Drizzle"){
         words = rainSet;
         magnetGenerator(rainSet);
         document.body.style.background = '#9aa0bf';
     }
 
-    if(mainWeather=="rainy"){
+    if(mainWeather=="Rainy"){
         words = stormSet;
         magnetGenerator(stormSet);
         document.body.style.background = '#171e42';
     }
 
     //sunny
-    if(mainweather == "clear"){
+    if(mainWeather == "Clear"){
         words = clearSet;
         magnetGenerator(clearSet);
         document.body.style.background = '#87CEFA';
     }
 
     //cloudy weather
-    if(mainweather == "cloudy"){
+    if(mainWeather == "Clouds"){
         words = cloudSet;
         magnetGenerator(cloudSet);
         document.body.style.background = '#ADACA9';
