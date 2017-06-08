@@ -60,8 +60,6 @@ function gotData(data){
 
 		weather = data; 
 
-
-
 //Is the wordset that will be displayed
 var words; 
 
@@ -73,7 +71,7 @@ var stage = new Kinetic.Stage({
 
 var layer = new Kinetic.Layer();
 
-var displayWidth = window.innerWidth / 2; //sets where the first magnet appears horizontally
+var displayWidth = window.innerWidth / 4; //sets where the first magnet appears horizontally
 var displayHeight = window.innerHeight / 1.5 ; //sets where the first magnet appears vertically
 
 
@@ -95,7 +93,7 @@ for(i in words) {
     });
 
     var simpleText = new Kinetic.Text({
-        x: displayWidth + 8,
+        x: displayWidth + 6,
         y: displayHeight,
         text: words[i],
         fontSize: 15,
@@ -104,10 +102,10 @@ for(i in words) {
     });
 
     var rect = new Kinetic.Rect({
-        x: displayWidth + 4,
-        y: displayHeight - 2,
-        width: simpleText.getWidth() + 10,
-        height: simpleText.getHeight() + 10,
+        x: displayWidth + 2,
+        y: displayHeight - 4,
+        width: simpleText.getWidth() + 8,
+        height: simpleText.getHeight() + 8,
         stroke: 'black',
         strokeWidth: 2,
         fill: 'white'
@@ -118,9 +116,9 @@ for(i in words) {
     layer.add(group); //makes the group draggable
     
     displayWidth = displayWidth + simpleText.getWidth() + 15; //spaces the magnets apart
-    if (displayWidth > window.innerWidth) { //makes the magnets appear in rows
-        displayWidth = window.innerWidth / 4;
-        displayHeight +=35;
+    if (displayWidth > 7 * window.innerWidth / 8) { //makes the magnets appear in rows
+        displayWidth = window.innerWidth / 27;
+        displayHeight +=30;
     }
 }
 
