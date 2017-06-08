@@ -2,5 +2,7 @@
 an art project allowing people appreciate and interact with their surroundings through poetry
 under construction, please watch your step!
 
-currently: 
-![screen shot 2017-05-31 at 8 31 09 pm](https://cloud.githubusercontent.com/assets/23648072/26703879/d16395a2-46f9-11e7-918c-a35eac0bb48b.png)
+the brighter the weather, the brighter the word set.
+
+clear, sunny, bright day: 
+![screen shot 2017-06-07 at 10 10 00 pm](https://user-images.githubusercontent.com/23648072/26910865-89ebb762-4bd7-11e7-8fe5-1aad817580f3.png)
