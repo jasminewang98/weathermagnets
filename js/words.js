@@ -9,6 +9,7 @@ var longitude;
 
 function setup() {
 	//If the navigator exists on the user's browser, then it will grab their location. 
+      
 	if(navigator.geolocation){
 		//finds and watches the user's location
 		navigator.geolocation.getCurrentPosition(onPositionRecieved, locationNotRecieved, {timeout:0});
